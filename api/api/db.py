@@ -6,22 +6,34 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-mysql_user = os.environ.get('MYSQL_USER')
-mysql_endpoint = os.environ.get('MYSQL_ENDPOINT')
-mysql_password = os.environ.get('MYSQL_PASSWORD')
+user = os.environ.get("DATABASE_USER")
+db = os.environ.get("DATABASE_NAME")
+endpoint = os.environ.get("DATABASE_ENDPOINT")
+password = os.environ.get("DATABASE_PASSWORD")
 
-conn = pymysql.connect(host=mysql_endpoint,
-                       user=mysql_user,
-                       password=mysql_password,
-                       database='lol',)
+conn = pymysql.connect(
+    host=endpoint,
+    user=user,
+    password=password,
+    database=db,
+)
+
+
+def single_result_query(query: str):
+    result = sql(query)
+
+    if not result:
+        return []
+
+    return sql(query)[0][0]
 
 
 def sql(query: str) -> Optional[List[tuple]]:
     with conn.cursor() as cur:
         cur.execute(query)
-        return cur.fetchall()
+    conn.commit()
+    return cur.fetchall()
 
 
-if __name__ == '__main__':
-    print(sql("SELECT password FROM user WHERE "))
-
+if __name__ == "__main__":
+    print(sql("SELECT id FROM user"))
