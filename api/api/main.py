@@ -57,10 +57,6 @@ def login(user: LoginUser):
         access_token = jwt.encode(payload, access_token_secret, algorithm="HS256")
         refresh_token = jwt.encode(payload, refresh_token_secret, algorithm="HS256")
 
-        print(f"""INSERT INTO user (id) VALUES ('{user.id}')
-                ON DUPLICATE KEY UPDATE refresh_token='{refresh_token}';
-            """)
-
         # upsert refresh_token
         sql(
             f"""INSERT INTO user (id) VALUES ('{user.id}')
