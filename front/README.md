@@ -1,6 +1,6 @@
-cd front
+# cd front 
 
-//module 설치
-npm install
-//실행
-npm start
+## //module 설치
+### npm install
+## //실행
+### npm start
