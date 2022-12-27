@@ -1,6 +1,6 @@
 ## cd front 
 
-### //module 설치
+### module 설치
 #### npm install
-### //실행
+### 실행
 #### npm start
