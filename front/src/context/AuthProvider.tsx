@@ -21,6 +21,7 @@ type ProviderProps = {
 export const AuthProvider = ({ children }: Props) => {
     const [auth, setAuth] = useState<Auth>({});
 
+
     return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;
 };
 

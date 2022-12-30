@@ -1,47 +1,48 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
 
 type User = {
-    username: string;
+    firstname: string;
 };
-
 const Users = () => {
-    const [users, setUsers] = useState<User[]>();
+    const [users, setUsers] = useState<string[]>();
     const axiosPrivate = useAxiosPrivate();
-    const location = useLocation();
     const navigate = useNavigate();
+    const location = useLocation();
+
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController();
 
         const getUsers = async () => {
             try {
-                const response = await axiosPrivate.get("/users", {
+                const response = await axiosPrivate.get("/employees", {
                     signal: controller.signal,
                 });
-                console.log(response.data);
-                isMounted && setUsers(response.data);
+                const firstNames = response.data.map((user:any)=> user.firstname)
+                isMounted && setUsers(firstNames)
             } catch (err) {
-                console.log(err);
+                console.error(err);
                 navigate("/login", { state: { from: location }, replace: true });
             }
         };
+
         getUsers();
+
         return () => {
             isMounted = false;
-            controller.abort();
         };
     }, []);
+
     return (
         <article>
             <h2>Users List</h2>
             {users?.length ? (
                 <ul>
                     {users.map((user, i) => (
-                        <li key={i}>{user?.username}</li>
+                        <li key={i}>{user}</li>
                     ))}
                 </ul>
             ) : (

@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
+import { Link } from "react-router-dom";
 
 const EMAIL_REGEX =
     /^([\w._-])*[a-zA-Z0-9]+([\w._-])*([a-zA-Z0-9])+([\w._-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
@@ -224,14 +225,13 @@ const Register = () => {
                             Sign Up
                         </button>
                     </form>
-                    <p>
-                        Already registered?
-                        <br />
+                    <span>
+                        이미 회원이신가요?
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="#">Sign In</a>
+                            <Link to='/login'>로그인</Link>
                         </span>
-                    </p>
+                    </span>
                 </section>
             )}
         </>

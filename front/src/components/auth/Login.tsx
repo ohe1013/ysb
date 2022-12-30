@@ -2,12 +2,13 @@ import React, { FormEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import axios from "../../api/axios";
-import AuthContext from "../../context/AuthProvider";
 import useAuth from "../../hooks/useAuth";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import useInput from "../../hooks/useInput";
+import useToggle from "../../hooks/useToggle";
 
 const LOGIN_URL = "user/login";
-
 const Login = () => {
     const { setAuth } = useAuth();
 
@@ -18,9 +19,10 @@ const Login = () => {
     const userRef = useRef<HTMLInputElement>();
     const errRef = useRef<HTMLParagraphElement>();
 
-    const [email, setEmail] = useState("");
+    const [email, resetEmail, emailAttribute] = useInput('email','');
     const [pwd, setPwd] = useState("");
     const [errMsg, setErrMsg] = useState("");
+    const [check, toggleCheck] = useToggle('persist', false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -33,20 +35,15 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(
-                LOGIN_URL,
-                JSON.stringify({ id: "gosu", password: "1q2w3e4r" }),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
-                }
-            );
-            console.log(JSON.stringify(res?.data));
-            const accessToken = res?.data[0];
+            const res = await axios.post(LOGIN_URL, JSON.stringify({ user: email, pwd: pwd }), {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+            });
             const roles = [1984, 2001, 5150];
+            const accessToken = res?.data?.accessToken;
             setAuth({ email, pwd, roles, accessToken });
 
-            setEmail("");
+            resetEmail("");
             setPwd("");
             navigate(from, { replace: true });
         } catch (err) {
@@ -75,8 +72,7 @@ const Login = () => {
                     id="email"
                     ref={userRef}
                     autoComplete="off"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
+                    {...emailAttribute}
                     required
                 />
                 <label htmlFor="password">password:</label>
@@ -88,6 +84,15 @@ const Login = () => {
                     required
                 />
                 <button>이메일 로그인</button>
+                <div className="persistCheck">
+                    <input 
+                        type="checkbox"  
+                        id="togglePersist"
+                        checked={check}
+                        onChange={toggleCheck}
+                    />
+                    <label htmlFor="persist">Trust This Device</label>
+                </div>
             </form>
             <div>
                 <span className="line">이메일</span>
@@ -95,7 +100,7 @@ const Login = () => {
                 <span className="line">비밀번호 찾기</span>
                 <span> | </span>
                 <span>
-                    <a href="#">회원가입</a>
+                    <Link to="/register">회원가입</Link>
                 </span>
             </div>
         </section>
