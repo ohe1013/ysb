@@ -1,54 +1,57 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const Header = () => {
-    return (
-    <div>
+  function Menu(e: any) {
+    let list = document.querySelector("ul");
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    e.name === "menu"
+      ? ((e.name = "close"), list.classList.add("top-[80px]"), list.classList.add("opacity-100"))
+      : ((e.name = "menu"), list.classList.remove("top-[80px]"), list.classList.remove("opacity-100"));
+  }
+  return (
+    <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
+      <div className="flex justify-between items-center ">
+        <span className="text-2xl font-[Poppins] cursor-pointer">tailwind</span>
 
-    <header>
-        <div className="header">
-          <button className="menu-btn" aria-label="Open Menu">
-            <svg
-              height="24"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-label="Open Menu"
-              role="img"
-            >
-              <path d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
-            </svg>
-          </button>
-          <div className="logo">Logo</div>
-          <nav className="menu">
-            <div className="drawer">
-              <button className="close-btn" aria-label="Close Menu">
-                <svg
-                  height="24"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Close Menu"
-                  role="img"
-                >
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path
-                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-                  ></path>
-                </svg>
-              </button>
-              <a href="#">Home</a>
-              <a href="#services">Services</a>
-              <a href="#gallery">Gallery</a>
-              <a href="#about">About</a>
-              <a href="#contact">Contact</a>
-            </div>
-            <div className="blank"></div>
-          </nav>
-        </div>
-      </header>
-  <img className="img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Image"/>)
-  </div>
-    )
-}
+        <span className="text-3xl cursor-pointer mx-2 md:hidden block">
+          <button name="menu"></button>
+        </span>
+      </div>
+
+      <ul className="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
+        <li className="mx-4 my-6 md:my-0">
+          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
+            HOME
+          </a>
+        </li>
+        <li className="mx-4 my-6 md:my-0">
+          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
+            SERVICE
+          </a>
+        </li>
+        <li className="mx-4 my-6 md:my-0">
+          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
+            ABOUT
+          </a>
+        </li>
+        <li className="mx-4 my-6 md:my-0">
+          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
+            CONTACT
+          </a>
+        </li>
+        <li className="mx-4 my-6 md:my-0">
+          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
+            BLOG'S
+          </a>
+        </li>
+
+        <button className="bg-cyan-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded ">
+          Get started
+        </button>
+        <h2 className=""></h2>
+      </ul>
+    </nav>
+  );
+};
 
 export default Header;
