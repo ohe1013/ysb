@@ -3,6 +3,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
+import styles from './Auth.module.css'
 
 const EMAIL_REGEX =
     /^([\w._-])*[a-zA-Z0-9]+([\w._-])*([a-zA-Z0-9])+([\w._-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
@@ -92,23 +93,23 @@ const Register = () => {
     return (
         <>
             {success ? (
-                <section>
+                <section className={styles.section}>
                     <h1>Success!</h1>
                     <p>
                         <a href="#">Sign In</a>
                     </p>
                 </section>
             ) : (
-                <section>
+                <section className={styles.section}>
                     <p
                         ref={errRef}
-                        className={errMsg ? "errMsg" : "offscreen"}
+                        className={errMsg ? styles.errMsg : styles.offscreen }
                         aria-live="assertive"
                     >
                         {errMsg}
                     </p>
                     <h1>Register</h1>
-                    <form onSubmit={handleSubmit}>
+                    <form className={styles.form} onSubmit={handleSubmit}>
                         <label htmlFor="username">이름:</label>
                         <input
                             type="text"
@@ -117,14 +118,13 @@ const Register = () => {
                             autoComplete="off"
                             onChange={(e) => setUsername(e.target.value)}
                             required
-                            aria-invalid={validEmail ? "false" : "true"}
                             aria-describedby="uidnote"
                             onFocus={() => setUsernameFocus(true)}
                             onBlur={() => setUsernameFocus(false)}
                         />
                         <p
                             id="uidnote"
-                            className={usernameFocus && username ? "instructions" : "offscreen"}
+                            className={usernameFocus && username ? styles.instructions : styles.offscreen}
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                             실명을 입력해주세요.
@@ -133,11 +133,11 @@ const Register = () => {
                             이메일:
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                className={validEmail ? "valid" : "hide"}
+                                className={validEmail ? styles.valid : styles.hide}
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
-                                className={validEmail || !email ? "hide" : "invalid"}
+                                className={validEmail || !email ? styles.hide : styles.invalid}
                             />
                         </label>
                         <input
@@ -154,7 +154,7 @@ const Register = () => {
                         <p
                             id="emailnote"
                             className={
-                                emailFocus && email && !validEmail ? "instructions" : "offscreen"
+                                emailFocus && email && !validEmail ? styles.instructions : styles.offscreen
                             }
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
@@ -165,11 +165,11 @@ const Register = () => {
                             Password:
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                className={validPwd ? "valid" : "hide"}
+                                className={validPwd ? styles.valid : styles.hide}
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
-                                className={validPwd || !pwd ? "hide" : "invalid"}
+                                className={validPwd || !pwd ? styles.hide : styles.invalid}
                             />
                         </label>
                         <input
@@ -185,7 +185,7 @@ const Register = () => {
                         />
                         <p
                             id="pwdnote"
-                            className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
+                            className={pwdFocus && !validPwd ? styles.instructions : styles.offscreen}
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                             비밀번호 형식이 잘못되었습니다. 영문+숫자 조합 8자리 이상 입력해주세요.
@@ -195,11 +195,11 @@ const Register = () => {
                             Confirm Password:
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                className={validMatch && matchPwd ? "valid" : "hide"}
+                                className={validMatch && matchPwd ? styles.valid : styles.hide}
                             />
                             <FontAwesomeIcon
                                 icon={faTimes}
-                                className={validMatch || !matchPwd ? "hide" : "invalid"}
+                                className={validMatch || !matchPwd ? styles.hide : styles.invalid}
                             />
                         </label>
                         <input
@@ -215,7 +215,7 @@ const Register = () => {
                         />
                         <p
                             id="confirmnote"
-                            className={matchFocus && !validMatch ? "instructions" : "offscreen"}
+                            className={matchFocus && !validMatch ? styles.instructions : styles.offscreen}
                         >
                             <FontAwesomeIcon icon={faInfoCircle} />
                             비밀번호가 일치하지 않습니다.
@@ -227,7 +227,7 @@ const Register = () => {
                     </form>
                     <span>
                         이미 회원이신가요?
-                        <span className="line">
+                        <span className={styles.line}>
                             {/*put router link here*/}
                             <Link to='/login'>로그인</Link>
                         </span>

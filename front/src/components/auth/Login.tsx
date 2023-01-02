@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import styles from './Auth.module.css'
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 
@@ -60,12 +60,12 @@ const Login = () => {
     };
 
     return (
-        <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+        <section className={styles.section}>
+            <p ref={errRef} className={errMsg ? `${styles.errmsg}` : `${styles.offscreen}`} aria-live="assertive">
                 {errMsg}
             </p>
             <h1>YSB</h1>
-            <form onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input
                     type="text"
@@ -84,7 +84,7 @@ const Login = () => {
                     required
                 />
                 <button>이메일 로그인</button>
-                <div className="persistCheck">
+                <div className={styles.persistCheck}>
                     <input 
                         type="checkbox"  
                         id="togglePersist"
@@ -95,9 +95,9 @@ const Login = () => {
                 </div>
             </form>
             <div>
-                <span className="line">이메일</span>
-                <span className="line">/</span>
-                <span className="line">비밀번호 찾기</span>
+                <span className={styles.line}>이메일</span>
+                <span className={styles.line}>/</span>
+                <span className={styles.line}>비밀번호 찾기</span>
                 <span> | </span>
                 <span>
                     <Link to="/register">회원가입</Link>
