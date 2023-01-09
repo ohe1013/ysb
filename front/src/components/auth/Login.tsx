@@ -4,106 +4,150 @@ import { useEffect, useRef, useState } from "react";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import styles from './Auth.module.css'
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
 
 const LOGIN_URL = "user/login";
 const Login = () => {
-    const { setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
-    const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
-    const userRef = useRef<HTMLInputElement>();
-    const errRef = useRef<HTMLParagraphElement>();
+  const userRef = useRef<HTMLInputElement>();
+  const errRef = useRef<HTMLParagraphElement>();
 
-    const [email, resetEmail, emailAttribute] = useInput('email','');
-    const [pwd, setPwd] = useState("");
-    const [errMsg, setErrMsg] = useState("");
-    const [check, toggleCheck] = useToggle('persist', false);
+  const [email, resetEmail, emailAttribute] = useInput("email", "");
+  const [pwd, setPwd] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [check, toggleCheck] = useToggle("persist", false);
 
-    useEffect(() => {
-        userRef.current.focus();
-    }, []);
-    useEffect(() => {
-        setErrMsg("");
-    }, []);
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+  useEffect(() => {
+    setErrMsg("");
+  }, []);
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-        try {
-            const res = await axios.post(LOGIN_URL, JSON.stringify({ user: email, pwd: pwd }), {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-            });
-            const roles = [1984, 2001, 5150];
-            const accessToken = res?.data?.accessToken;
-            setAuth({ email, pwd, roles, accessToken });
+    try {
+      const res = await axios.post(LOGIN_URL, JSON.stringify({ user: email, pwd: pwd }), {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      const roles = [1984, 2001, 5150];
+      const accessToken = res?.data?.accessToken;
+      setAuth({ email, pwd, roles, accessToken });
 
-            resetEmail("");
-            setPwd("");
-            navigate(from, { replace: true });
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg("No Server Response");
-            } else if (err.response?.status === 400) {
-                setErrMsg("이메일 비밀번호를 확인해주세요");
-            } else if (err.response?.status === 401) {
-                setErrMsg("인증오류");
-            } else {
-                setErrMsg("로그인에 실패했습니다.");
-            }
-        }
-    };
+      resetEmail("");
+      setPwd("");
+      navigate(from, { replace: true });
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("이메일 비밀번호를 확인해주세요");
+      } else if (err.response?.status === 401) {
+        setErrMsg("인증오류");
+      } else {
+        setErrMsg("로그인에 실패했습니다.");
+      }
+    }
+  };
 
-    return (
-        <section className={styles.section}>
-            <p ref={errRef} className={errMsg ? `${styles.errmsg}` : `${styles.offscreen}`} aria-live="assertive">
-                {errMsg}
-            </p>
-            <h1>YSB</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="text"
-                    id="email"
-                    ref={userRef}
-                    autoComplete="off"
-                    {...emailAttribute}
-                    required
-                />
-                <label htmlFor="password">password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    value={pwd}
-                    required
-                />
-                <button>이메일 로그인</button>
-                <div className={styles.persistCheck}>
-                    <input 
-                        type="checkbox"  
-                        id="togglePersist"
-                        checked={check}
-                        onChange={toggleCheck}
+  return (
+    <>
+      <section className="text-gray-600 body-font relative">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="flex flex-col text-center w-full mb-12">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">로그인</h1>
+          </div>
+
+          <div className="lg:w-1/2 md:w-2/3 mx-auto">
+            <form onSubmit={handleSubmit}>
+              <div className="flex-wrap -m-2">
+                <div className="p-2 w-1/2 mx-auto my-0">
+                  <div className="relative">
+                    <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+                      이메일
+                    </label>
+                    <input
+                      type="text"
+                      id="email"
+                      ref={userRef}
+                      autoComplete="off"
+                      {...emailAttribute}
+                      required
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                     />
-                    <label htmlFor="persist">Trust This Device</label>
+                    {/* <p
+                    className={
+                      emailFocus && email && !validEmail
+                        ? "sm:text-l text-l font-medium title-font mb-4 text-red-500"
+                        : "hidden"
+                    }
+                  >
+                    유효한 이메일 주소가 아닙니다!
+                  </p> */}
+                  </div>
                 </div>
+                <div className="p-2 w-1/2 mx-auto my-0">
+                  <div className="relative">
+                    <label htmlFor="password" className="leading-7 text-sm text-gray-600">
+                      비밀번호
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      onChange={(e) => setPwd(e.target.value)}
+                      value={pwd}
+                      required
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    />
+                  </div>
+                </div>
+                {/* <p
+                className={
+                  passwordFocus && password && !validPassword
+                    ? "sm:text-l text-l font-medium title-font mb-4 text-red-500"
+                    : "hidden"
+                }
+              >
+                비밀번호는 8자리 이상입니다!
+              </p> */}
+                {errMsg !== "" ? (
+                  <div className="flex flex-col text-center w-full ">
+                    <p className="sm:text-l text-l font-medium title-font mb-4 text-red-500">{errMsg}</p>
+                  </div>
+                ) : null}
+                <div className="p-2 w-full">
+                  <button
+                    className={
+                      "flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+                      //   : "flex mx-auto text-white bg-slate-500 border-0 py-2 px-8 focus:outline-none rounded text-lg"
+                    }
+                  >
+                    로그인
+                  </button>
+                </div>
+              </div>
             </form>
-            <div>
-                <span className={styles.line}>이메일</span>
-                <span className={styles.line}>/</span>
-                <span className={styles.line}>비밀번호 찾기</span>
-                <span> | </span>
-                <span>
-                    <Link to="/register">회원가입</Link>
+            <div className="mt-2">
+              <span>
+                <span>뭔가를 찾기 </span>
+                <span className="text-gray-300"> | </span>
+                <span className="inline-block font-bold hover:text-red-300">
+                  <Link to="/register">회원가입</Link>
                 </span>
+              </span>
             </div>
-        </section>
-    );
+          </div>
+        </div>
+      </section>
+    </>
+  );
 };
 export default Login;
