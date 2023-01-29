@@ -42,6 +42,11 @@ def root():
 def signup(user: SignupUser):
     pass
 
+@app.post("/user/validate_token")
+def validate_token(data: UserToken):
+    if data.access_token == None:
+        return "no token"
+
 
 @app.post("/user/login")
 def login(user: LoginUser):
