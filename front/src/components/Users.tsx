@@ -21,8 +21,8 @@ const Users = () => {
                 const response = await axiosPrivate.get("/employees", {
                     signal: controller.signal,
                 });
-                const firstNames = response.data.map((user:any)=> user.firstname)
-                isMounted && setUsers(firstNames)
+                const firstNames = response.data.map((user: any) => user.firstname);
+                isMounted && setUsers(firstNames);
             } catch (err) {
                 console.error(err);
                 navigate("/login", { state: { from: location }, replace: true });

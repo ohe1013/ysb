@@ -6,21 +6,24 @@ import reportWebVitals from "./reportWebVitals";
 import { AuthProvider } from "./context/AuthProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-if ( process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
     disableReactDevTools();
-
 }
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <AuthProvider>
-                <Routes>
-                    <Route path="/*" element={<App />}></Route>
-                </Routes>
-            </AuthProvider>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/*" element={<App />}></Route>
+                    </Routes>
+                </AuthProvider>
+            </QueryClientProvider>
         </BrowserRouter>
     </React.StrictMode>
 );

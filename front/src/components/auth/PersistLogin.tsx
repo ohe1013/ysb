@@ -10,10 +10,10 @@ const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
     const { auth } = useAuth();
-    const [persist] = useLocalStorage('persist', false);
+    const [persist] = useLocalStorage("persist", false);
 
     useEffect(() => {
-        let isMounted = true
+        let isMounted = true;
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
@@ -25,21 +25,13 @@ const PersistLogin = () => {
         };
 
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
-        return ()=> {
-            isMounted = false
-        }
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     useEffect(() => {}, [isLoading]);
-    return <>
-            {
-            !persist 
-                ? <Outlet />
-                : isLoading 
-                    ? <p>Loading</p> 
-                    : <Outlet />
-            }
-            </>;
+    return <>{!persist ? <Outlet /> : isLoading ? <p>Loading</p> : <Outlet />}</>;
 };
 
 export default PersistLogin;
