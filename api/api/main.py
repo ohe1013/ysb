@@ -42,15 +42,15 @@ def root():
 def signup(user: SignupUser):
     pass
 
-@app.post("/user/validate_token")
-def validate_token(data: UserToken):
-    if data.access_token == None:
-        return "no token"
+# @app.post("/user/validate_token")
+# def validate_token(data: UserToken):
+#     if data.access_token == None:
+#         return "no token"
 
 
 @app.post("/user/login")
 def login(user: LoginUser):
-    password = single_result_query(f"SELECT pw from user WHERE id='{user.id}'")
+    password = single_result_query(f"SELECT password from users WHERE id='{user.email}'")
     if not password:
         return "No user found"
 
@@ -79,7 +79,7 @@ def login(user: LoginUser):
 
         # upsert refresh_token
         sql(
-            f"""INSERT INTO user (id) VALUES ('{user.id}')
+            f"""INSERT INTO user (id) VALUES ('{user.email}')
                 ON DUPLICATE KEY UPDATE refresh_token='{refresh_token}';
             """
         )
