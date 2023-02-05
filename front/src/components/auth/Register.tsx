@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
-import axios, { axiosPrivate } from "../../service/config/axios";
+import useSignUp from "../../hooks/useSignUp";
 import { Link } from "react-router-dom";
 
 const EMAIL_REGEX = /^([\w._-])*[a-zA-Z0-9]+([\w._-])*([a-zA-Z0-9])+([\w._-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
@@ -28,6 +28,8 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState("");
     const [success, setSuccess] = useState(false);
 
+    const { mutate: signUpMutate, isError, error } = useSignUp();
+
     useEffect(() => {
         userRef.current.focus();
     }, []);
@@ -48,7 +50,7 @@ const Register = () => {
         setErrMsg("");
     }, [username, email, pwd, matchPwd]);
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // if button enabled with JS hack
         const v1 = EMAIL_REGEX.test(email);
@@ -59,14 +61,7 @@ const Register = () => {
         }
 
         try {
-            await axios.post(
-                "/users/create",
-                { email: email, password: pwd },
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
-                }
-            );
+            signUpMutate({ email, password: pwd });
             setSuccess(true);
             setUsername("");
             setEmail("");

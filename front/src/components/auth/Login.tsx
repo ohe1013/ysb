@@ -1,11 +1,11 @@
 import React, { FormEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
-import axios from "../../service/config/axios";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import useInput from "../../hooks/useInput";
 import useToggle from "../../hooks/useToggle";
+import { authAxios } from "../../api/axios";
 
 const LOGIN_URL = "user/login";
 const Login = () => {
@@ -34,7 +34,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(
+            const res = await authAxios.post(
                 LOGIN_URL,
                 { email: email, password: pwd },
                 {
