@@ -3,7 +3,6 @@ import React from "react";
 import Layout from "../components/layout/Layout";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
-import LinkPage from "../components/LinkPage";
 import MainRoom from "../components/ysb/MainRoom";
 import Unauthorized from "../components/auth/UnAuthorized";
 import PersistLogin from "../components/auth/PersistLogin";
@@ -22,8 +21,7 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route path="login" element={<Login />} />
-                    <Route path="register" element={<Home />} />
-                    <Route path="linkpage" element={<LinkPage />} />
+                    <Route path="register" element={<Register />} />
                     <Route path="mainRoom" element={<MainRoom />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
                     <Route element={<PersistLogin />}>
