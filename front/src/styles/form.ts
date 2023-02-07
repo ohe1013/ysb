@@ -52,7 +52,7 @@ export const ValidationMessage = styled.span`
 export const Label = styled.label`
     display: inline-block;
     font-size: 1.5rem;
-    width: 8rem;
+    width: 10rem;
 `;
 
 export const Button = styled.button<{

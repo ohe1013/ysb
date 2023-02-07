@@ -6,6 +6,10 @@ export const validatePassword = (password: string) => {
     return password.length >= 8;
 };
 
+export const validateMatchPassword = (password: string, matchPassword: string) => {
+    return password === matchPassword;
+};
+
 export const validateEmailAndPassword = (email: string, password: string) => {
     return validateEmail(email) && validatePassword(password);
 };

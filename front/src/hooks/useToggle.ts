@@ -1,16 +1,14 @@
-import { initKeyValue } from "../components/type/key";
-import useLocalStorage from "./useLocalStorage"
+import useLocalStorage from "./useLocalStorage";
 
+const useToggle = (key: any, initValue: any) => {
+    const [value, setValue] = useLocalStorage(key, initValue);
 
-const useToggle :initKeyValue = (key,initValue) => {
-    const [value, setValue] = useLocalStorage(key,initValue);
+    const toggle = (value: any) => {
+        setValue((prev: any) => {
+            return typeof value === "boolean" ? value : !prev;
+        });
+    };
+    return [value, toggle];
+};
 
-    const toggle = (value :any) => {
-        setValue((prev:any) => {
-            return typeof value === 'boolean' ? value : !prev
-        })
-    }
-    return [value, toggle]
-}
-
-export default useToggle
+export default useToggle;

@@ -1,11 +1,11 @@
 import { authAxios } from "./axios";
-import { UserType } from "../types/auth";
+import { SignUpUserType, LoginUserType } from "../types/auth";
 
 const authApi = {
-    login: (data: UserType) => {
+    login: (data: LoginUserType) => {
         return authAxios.post("users/login", data);
     },
-    signUp: (data: UserType) => {
+    signUp: (data: SignUpUserType) => {
         return authAxios.post("user/create", data);
     },
 };

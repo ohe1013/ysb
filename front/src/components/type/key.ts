@@ -1,1 +1,0 @@
-export type initKeyValue = (key:string, value: any) => any

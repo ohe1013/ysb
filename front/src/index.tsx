@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -11,13 +11,22 @@ if (process.env.NODE_ENV === "production") {
     disableReactDevTools();
 }
 const queryClient = new QueryClient();
+const Loading = () => {
+    return (
+        <div style={{ backgroundColor: "black", width: "500px", height: "500px" }}>
+            <h1>Loading</h1>
+        </div>
+    );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
-                <App />
+                <Suspense fallback={<Loading></Loading>}>
+                    <App />
+                </Suspense>
             </AuthProvider>
         </QueryClientProvider>
     </React.StrictMode>
