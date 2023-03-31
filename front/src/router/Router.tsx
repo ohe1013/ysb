@@ -9,6 +9,7 @@ import PersistLogin from "../components/auth/PersistLogin";
 import RequireAuth from "../components/auth/RequireAuth";
 import Admin from "../components/auth/Admin";
 import Home from "../pages/Home";
+import MapPage from "../pages/MapPage";
 
 const ROLES = {
     User: 2001,
@@ -23,6 +24,7 @@ const Router = () => {
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
                     <Route path="mainRoom" element={<MainRoom />} />
+                    <Route path="map" element={<MapPage />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
                     <Route element={<PersistLogin />}>
                         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
