@@ -10,6 +10,7 @@ import RequireAuth from "../components/auth/RequireAuth";
 import Admin from "../components/auth/Admin";
 import Home from "../pages/Home";
 import MapPage from "../pages/MapPage";
+import Test from "../pages/Test";
 
 const ROLES = {
     User: 2001,
@@ -26,6 +27,7 @@ const Router = () => {
                     <Route path="mainRoom" element={<MainRoom />} />
                     <Route path="map" element={<MapPage />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
+                    <Route path="test" element={<Test />} />
                     <Route element={<PersistLogin />}>
                         <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
                             <Route path="/" element={<Home />} />
