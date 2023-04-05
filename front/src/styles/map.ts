@@ -129,3 +129,47 @@ export const MapBoardDiv = styled.div`
         transition: width 0.3s, height 0.3s;
     }
 `;
+
+export const MapInteractionDiv = styled.div`
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    button {
+        width: 40px;
+        height: 40px;
+
+        border: transparent;
+        border-radius: 50%;
+        box-shadow: 0px 0px 5px grey;
+
+        cursor: pointer;
+
+        &:active {
+            opacity: 0.5;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: initial;
+        }
+
+        &.location {
+            background-color: limegreen;
+        }
+
+        &.sejong {
+            background-color: dodgerblue;
+        }
+
+        &.add {
+            background-color: crimson;
+        }
+    }
+`;

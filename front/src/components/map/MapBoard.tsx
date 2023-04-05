@@ -82,17 +82,16 @@ export default function MapBoard({ map }: Props): JSX.Element | null {
         if (!layerState.startsWith("base-vworld")) {
             setExtState(false);
         }
-    }, [layerState, map]);
+    }, [layerState]);
 
     useEffect(() => {
+        map.getAllLayers()
+            .filter((layer) => (layer.get("name") as string).startsWith("ext"))
+            .forEach((layer) => map.removeLayer(layer));
         if (extState) {
             map.addLayer(vworldHybridLayer);
-        } else {
-            map.getAllLayers()
-                .filter((layer) => (layer.get("name") as string).startsWith("ext"))
-                .forEach((layer) => map.removeLayer(layer));
         }
-    }, [extState, map]);
+    }, [extState]);
 
     map.once("postrender", () => {
         const zoom = map.getView().getZoom() || 0;
@@ -116,9 +115,7 @@ export default function MapBoard({ map }: Props): JSX.Element | null {
     return !map ? null : (
         <MapBoardDiv className="map-board" data-show={show}>
             <div className="item" data-name="header">
-                <button onClick={() => setShow(!show)}>
-                    {show ? <FaRegWindowMinimize /> : <FiMaximize />}
-                </button>
+                <button onClick={() => setShow(!show)}>{show ? <FaRegWindowMinimize /> : <FiMaximize />}</button>
             </div>
 
             <div className="item" data-name="layer">
