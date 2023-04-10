@@ -4,6 +4,11 @@ import Map from "ol/Map";
 import View from "ol/View";
 import { BiCurrentLocation } from "react-icons/bi";
 import proj4 from "proj4";
+import VectorSource from "ol/source/Vector";
+import { Circle, Fill, Stroke, Style } from "ol/style";
+import VectorLayer from "ol/layer/Vector";
+import { Point } from "ol/geom";
+import Feature from "ol/Feature";
 
 interface Props {
     children: JSX.Element | JSX.Element[];
@@ -14,9 +19,32 @@ interface SubProps {
 export default function MapInteraction({ children }: Props) {
     return <MapInteractionDiv>{children}</MapInteractionDiv>;
 }
-
+const vectorSource = new VectorSource();
 export function Location({ map }: SubProps): JSX.Element {
     if (map) {
+        map.on("pointerdrag", () => {
+            vectorSource.clear();
+        });
+        if (map.getAllLayers().filter((layer) => layer.get("name") === "location").length === 0) {
+            map.addLayer(
+                new VectorLayer({
+                    minZoom: 15,
+                    properties: { name: "location" },
+                    source: vectorSource,
+                    style: new Style({
+                        image: new Circle({
+                            fill: new Fill({ color: "dodgerblue" }),
+                            radius: 10,
+                            stroke: new Stroke({
+                                color: "white",
+                                width: 3,
+                            }),
+                        }),
+                    }),
+                    zIndex: 9999,
+                })
+            );
+        }
         const onClick = (e: SyntheticEvent) => {
             if ("geolocation" in navigator) {
                 const button = e.currentTarget as HTMLButtonElement;
@@ -26,8 +54,10 @@ export function Location({ map }: SubProps): JSX.Element {
                         const { longitude, latitude } = position.coords;
                         const baseEPSG = map.getView().getProjection().getCode();
                         const coord = proj4("EPSG:4326", baseEPSG, [longitude, latitude]);
-                        console.log(coord);
+                        vectorSource.clear();
                         flyAnimate(map.getView(), coord);
+                        vectorSource.addFeature(new Feature({ geometry: new Point(coord) }));
+
                         button.removeAttribute("disabled");
                     },
                     () => alert("실패"),

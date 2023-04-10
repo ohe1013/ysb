@@ -11,6 +11,7 @@ import Admin from "../components/auth/Admin";
 import Home from "../pages/Home";
 import MapPage from "../pages/MapPage";
 import Test from "../pages/Test";
+import WFS from "../pages/WFS";
 
 const ROLES = {
     User: 2001,
@@ -26,6 +27,7 @@ const Router = () => {
                     <Route path="register" element={<Register />} />
                     <Route path="mainRoom" element={<MainRoom />} />
                     <Route path="map" element={<MapPage />} />
+                    <Route path="wfs" element={<WFS />} />
                     <Route path="unauthorized" element={<Unauthorized />} />
                     <Route path="test" element={<Test />} />
                     <Route element={<PersistLogin />}>
