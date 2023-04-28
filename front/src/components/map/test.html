@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    </head>
+    <body>
+        <div id="main"></div>
+    </body>
+    <script>
+        const res = fetch("../../data/data.json");
+        var myChart = echarts.init(document.getElementById("main"), "vintage", {
+            width: 600,
+            height: 400,
+        });
+        var data1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3];
+        var viewData1 = [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3];
+        var data2 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3];
+        var viewData2 = [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3];
+        const data = {
+            total: 13,
+            list: [
+                {
+                    mntmp: 12.1,
+                    mnmntmp: 6.4,
+                    byyear: "2009",
+                    mnwns: 1,
+                    lwrlhd: 64,
+                    sunshn: 1881.7,
+                    mxdsn: 64.4,
+                    grwns: 0,
+                    mnrlhd: 74.2,
+                    ltmp: 0.7,
+                    prcpt: 1072.1,
+                    id: 1,
+                    fswns: 13.7,
+                    mnsea: 0,
+                    mnamtcld: 0,
+                    htmp: 25.4,
+                    dptmp: 0,
+                    mnmxtmp: 18.8,
+                },
+                {
+                    mntmp: 12,
+                    mnmntmp: 6.8,
+                    byyear: "2010",
+                    mnwns: 2.8,
+                    lwrlhd: 62,
+                    sunshn: 1795.3,
+                    mxdsn: 29.3,
+                    grwns: 0,
+                    mnrlhd: 75.7,
+                    ltmp: -0.55,
+                    prcpt: 1514.4,
+                    id: 2,
+                    fswns: 11.5,
+                    mnsea: 0,
+                    mnamtcld: 0,
+                    htmp: 25.1,
+                    dptmp: 0,
+                    mnmxtmp: 18,
+                },
+                {
+                    mntmp: 11.4,
+                    mnmntmp: 6.65,
+                    byyear: "2011",
+                    mnwns: 2.9,
+                    lwrlhd: 55,
+                    sunshn: 1886.4,
+                    mxdsn: 10.7,
+                    grwns: 0,
+                    mnrlhd: 78.6,
+                    ltmp: 0.5,
+                    prcpt: 1629,
+                    id: 3,
+                    fswns: 11.2,
+                    mnsea: 0,
+                    mnamtcld: 0,
+                    htmp: 22.5,
+                    dptmp: 0,
+                    mnmxtmp: 17,
+                },
+                {
+                    mntmp: 11.5,
+                    mnmntmp: 6.9,
+                    byyear: "2012",
+                    mnwns: 2.5,
+                    lwrlhd: 12,
+                    sunshn: 2299.2,
+                    mxdsn: 5.9,
+                    grwns: 26.3,
+                    mnrlhd: 75.7,
+                    ltmp: -15.1,
+                    prcpt: 1642.6,
+                    id: 4,
+                    fswns: 16.2,
+                    mnsea: 1016.6,
+                    mnamtcld: 5.3,
+                    htmp: 36,
+                    dptmp: 6.8,
+                    mnmxtmp: 16.6,
+                },
+                {
+                    mntmp: 11.8,
+                    mnmntmp: 7,
+                    byyear: "2013",
+                    mnwns: 2.1,
+                    lwrlhd: 15,
+                    sunshn: 2382.7,
+                    mxdsn: 7.8,
+                    grwns: 15.6,
+                    mnrlhd: 80.8,
+                    ltmp: -16.6,
+                    prcpt: 1018.7,
+                    id: 5,
+                    fswns: 10,
+                    mnsea: 1016.7,
+                    mnamtcld: 5,
+                    htmp: 33.4,
+                    dptmp: 8.1,
+                    mnmxtmp: 17,
+                },
+                {
+                    mntmp: 12.3,
+                    mnmntmp: 7.5,
+                    byyear: "2014",
+                    mnwns: 1.9,
+                    lwrlhd: 12,
+                    sunshn: 2334,
+                    mxdsn: 23.3,
+                    grwns: 17,
+                    mnrlhd: 78.2,
+                    ltmp: -11.1,
+                    prcpt: 1000.1,
+                    id: 6,
+                    fswns: 10.4,
+                    mnsea: 1017.2,
+                    mnamtcld: 5,
+                    htmp: 33.7,
+                    dptmp: 8.1,
+                    mnmxtmp: 17.8,
+                },
+                {
+                    mntmp: 12.7,
+                    mnmntmp: 7.9,
+                    byyear: "2015",
+                    mnwns: 2,
+                    lwrlhd: 9,
+                    sunshn: 2384.4,
+                    mxdsn: 21,
+                    grwns: 21.7,
+                    mnrlhd: 78,
+                    ltmp: -10.5,
+                    prcpt: 815.9,
+                    id: 7,
+                    fswns: 12.3,
+                    mnsea: 1017.1,
+                    mnamtcld: 5.1,
+                    htmp: 33.7,
+                    dptmp: 8.4,
+                    mnmxtmp: 18.1,
+                },
+                {
+                    mntmp: 12.9,
+                    mnmntmp: 8.225,
+                    byyear: "2016",
+                    mnwns: 2,
+                    lwrlhd: 12,
+                    sunshn: 2382.9,
+                    mxdsn: 40,
+                    grwns: 19.5,
+                    mnrlhd: 69.6,
+                    ltmp: -12.7,
+                    prcpt: 979.6,
+                    id: 8,
+                    fswns: 12.7,
+                    mnsea: 1016.5,
+                    mnamtcld: 5.1,
+                    htmp: 34.6,
+                    dptmp: 9.4,
+                    mnmxtmp: 18.2,
+                },
+                {
+                    mntmp: 12.6,
+                    mnmntmp: 7.3,
+                    byyear: "2017",
+                    mnwns: 1.6,
+                    lwrlhd: 1,
+                    sunshn: 2531.2,
+                    mxdsn: 36.9,
+                    grwns: 16.2,
+                    mnrlhd: 75.3,
+                    ltmp: -14.2,
+                    prcpt: 1009.5,
+                    id: 9,
+                    fswns: 9.5,
+                    mnsea: 1016.3,
+                    mnamtcld: 4.7,
+                    htmp: 35.2,
+                    dptmp: 7.5,
+                    mnmxtmp: 18.1,
+                },
+                {
+                    mntmp: 12.4,
+                    mnmntmp: 7.275,
+                    byyear: "2018",
+                    mnwns: 1.5,
+                    lwrlhd: 1,
+                    sunshn: 2556.2,
+                    mxdsn: 18.8,
+                    grwns: 16.9,
+                    mnrlhd: 78.3,
+                    ltmp: -16.6,
+                    prcpt: 1299,
+                    id: 10,
+                    fswns: 8.4,
+                    mnsea: 1016.9,
+                    mnamtcld: 5.1,
+                    htmp: 37,
+                    dptmp: 8,
+                    mnmxtmp: 17.75,
+                },
+                {
+                    mntmp: 12.7,
+                    mnmntmp: 7.525,
+                    byyear: "2019",
+                    mnwns: 1.4,
+                    lwrlhd: 12,
+                    sunshn: 2436.5,
+                    mxdsn: 9.8,
+                    grwns: 21,
+                    mnrlhd: 74,
+                    ltmp: -10.9,
+                    prcpt: 922.3,
+                    id: 11,
+                    fswns: 11.3,
+                    mnsea: 1016.4,
+                    mnamtcld: 5.3,
+                    htmp: 34.7,
+                    dptmp: 7.1,
+                    mnmxtmp: 18.3,
+                },
+                {
+                    mntmp: 12.8,
+                    mnmntmp: 8,
+                    byyear: "2020",
+                    mnwns: 1.6,
+                    lwrlhd: 13,
+                    sunshn: 1964.083333,
+                    mxdsn: 6.2,
+                    grwns: 21.3,
+                    mnrlhd: 73.8,
+                    ltmp: -12.6,
+                    prcpt: 1639.7,
+                    id: 12,
+                    fswns: 12.1,
+                    mnsea: 1017.1,
+                    mnamtcld: 5.6,
+                    htmp: 34.7,
+                    dptmp: 7.6,
+                    mnmxtmp: 18,
+                },
+                {
+                    mntmp: 13.2,
+                    mnmntmp: 9.2,
+                    byyear: "2021",
+                    mnwns: 2.0,
+                    lwrlhd: 8.0,
+                    sunshn: 2478.1,
+                    mxdsn: 0.0,
+                    grwns: 22.8,
+                    mnrlhd: 64.0,
+                    ltmp: -16.1,
+                    prcpt: 1199.7,
+                    id: 13,
+                    fswns: 10.0,
+                    mnsea: 1015.5,
+                    mnamtcld: 4.9,
+                    htmp: 33.8,
+                    dptmp: 5.7,
+                    mnmxtmp: 17.4,
+                },
+            ],
+        };
+
+        option = {
+            title: {
+                text: "Rainfall vs Evaporation",
+                subtext: "Fake Data",
+            },
+            tooltip: {
+                trigger: "axis",
+            },
+            label: {
+                show: false,
+            },
+            legend: {
+                data: ["Rainfall", "Evaporation"],
+            },
+            emphasis: {
+                label: {
+                    show: true,
+                    fontsize: 40,
+                    position: "center",
+                },
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ["line", "bar"] },
+                    restore: { show: true },
+                    saveAsImage: { show: true },
+                },
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: "category",
+                    data: [
+                        "Jan",
+                        "Feb",
+                        "Mar",
+                        "Apr",
+                        "May",
+                        "Jun",
+                        "Jul",
+                        "Aug",
+                        "Sep",
+                        "Oct",
+                        "Nov",
+                        "Dec",
+                    ],
+                    axisLabel: { rotate: 30, position: "center" },
+                },
+            ],
+            yAxis: [
+                {
+                    type: "value",
+                },
+            ],
+            series: [
+                {
+                    name: "Rainfall",
+                    type: "bar",
+                    data: data1,
+                    markPoint: {
+                        data: [
+                            { type: "max", name: "Max" },
+                            { type: "min", name: "Min" },
+                        ],
+                    },
+                    markLine: {
+                        data: [{ type: "average", name: "Avg" }],
+                    },
+                },
+                {
+                    name: "Evaporation",
+                    type: "bar",
+                    data: data2,
+                    markPoint: {
+                        data: [
+                            { name: "Max", type: "max" },
+                            { name: "Min", type: "min" },
+                        ],
+                    },
+                    markLine: {
+                        data: [{ type: "average", name: "Avg" }],
+                    },
+                },
+            ],
+        };
+        myChart.setOption(option);
+        myChart.on("click", function (params) {
+            console.log(params);
+            option.series[0].data = option.series[0].data.map((item, idx) => {
+                if (idx == params.dataIndex) {
+                    return 0;
+                } else {
+                    return item;
+                }
+            });
+            console.log(option.series[0].data);
+            myChart.setOption(option);
+        });
+        option.series[0].markPoint;
+    </script>
+    <!-- <script>
+        var data = [];
+        for (let i = 0; i < 5; i++) {
+            data.push(Math.round(Math.random() * 200));
+        }
+
+        const option = {
+            legend: {
+                orient: "vertical",
+                x: "left",
+                data: ["A", "B", "C", "D", "E"],
+            },
+            series: [
+                {
+                    type: "pie",
+                    radius: ["30%", "70%"],
+                    avoidLabelOverlap: false,
+                    label: {
+                        show: false,
+                        position: "center",
+                    },
+                    labelLine: {
+                        show: false,
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            fontSize: "30",
+                            fontWeight: "bold",
+                        },
+                    },
+                    data: [
+                        { value: 335, name: "A" },
+                        { value: 310, name: "B" },
+                        { value: 234, name: "C" },
+                        { value: 135, name: "D" },
+                        { value: 1548, name: "E" },
+                    ],
+                },
+            ],
+        };
+        function run() {
+            var data = option.series[0].data;
+            for (var i = 0; i < data.length; i++) {
+                if (Math.random() > 0.9) {
+                    data[i] += Math.round(Math.random() * 2000);
+                } else {
+                    data[i] += Math.round(Math.random() * 2000);
+                }
+            }
+            myChart.setOption(option);
+        }
+
+        var myChart = echarts.init(document.getElementById("main"), "dark", {
+            width: 600,
+            height: 400,
+        });
+        myChart.setOption(option);
+        myChart.on("click", function (params) {
+            console.log(params);
+        });
+        console.log(myChart);
+    </script> -->
+</html>
